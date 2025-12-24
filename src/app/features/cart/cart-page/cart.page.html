@@ -1,0 +1,53 @@
+<div class="cart-page">
+  <div class="container">
+    <!-- Breadcrumb Navigation -->
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a routerLink="/products" class="breadcrumb-link">Products</a>
+      <span class="breadcrumb-separator">></span>
+      <span class="breadcrumb-current">Cart</span>
+    </nav>
+
+    <h1 class="page-title">Shopping Cart</h1>
+    
+    <div class="cart-content" *ngIf="items().length > 0">
+      <!-- Cart Items Section -->
+      <div class="cart-items-section">
+        <div class="cart-header">
+          <div class="header-product">Product</div>
+          <div class="header-price">Price</div>
+          <div class="header-quantity">Quantity</div>
+          <div class="header-subtotal">Subtotal</div>
+        </div>
+        
+        <div class="cart-items">
+          <app-cart-item
+            *ngFor="let item of items()"
+            [item]="item"
+            (quantityChange)="updateQuantity($event)"
+            (delete)="removeItem($event)">
+          </app-cart-item>
+        </div>
+      </div>
+
+      <!-- Cart Totals Section -->
+      <div class="cart-totals-section">
+        <h2 class="totals-title">Cart Totals</h2>
+        <div class="totals-row">
+          <span class="totals-label">Subtotal</span>
+          <span class="totals-value">{{ subtotal().toFixed(2) | currency:'INR' }}</span>
+        </div>
+        <div class="totals-row total-row">
+          <span class="totals-label">Total</span>
+          <span class="totals-value total-value">{{ total().toFixed(2) | currency:'INR' }}</span>
+        </div>
+        <button class="checkout-btn" (click)="onCheckout()">Check Out</button>
+      </div>
+    </div>
+
+    <!-- Empty Cart -->
+    <div class="empty-cart" *ngIf="items().length === 0">
+      <p>Your cart is empty.</p>
+      <a routerLink="/products" class="shop-link">Continue Shopping</a>
+    </div>
+  </div>
+</div>

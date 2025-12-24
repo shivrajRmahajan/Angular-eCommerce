@@ -1,0 +1,29 @@
+<div class="product-card">
+  <div class="product-image-container">
+    <img [src]="product.image" [alt]="product.title" class="product-image" />
+    <div class="product-overlay">
+      <button class="add-to-cart-btn" (click)="addToCart()">
+        Add to Cart
+      </button>
+    </div>
+    <div class="product-badge" *ngIf="product.rating && product.rating.rate >= 4.5">
+      <span>New</span>
+    </div>
+  </div>
+  
+  <div class="product-info">
+    <h3 class="product-title">{{ product.title }}</h3>
+    <p class="product-category">{{ product.category }}</p>
+    
+    <div class="product-rating" *ngIf="product.rating">
+      <div class="stars">
+        <span *ngFor="let star of getStars(product.rating.rate)" [class.filled]="star" class="star">★</span>
+      </div>
+      <span class="rating-count">({{ product.rating.count }})</span>
+    </div>
+    
+    <div class="product-price">
+      <span class="price">${{ product.price.toFixed(2) }}</span>
+    </div>
+  </div>
+</div>

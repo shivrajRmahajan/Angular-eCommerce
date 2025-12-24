@@ -1,0 +1,334 @@
+.header {
+  background: white;
+  border-bottom: 1px solid #e5e7eb;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.nav-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 80px;
+  gap: 40px;
+}
+
+// Logo Section
+.logo-section {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.logo-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+}
+
+.logo-text {
+  font-size: 24px;
+  font-weight: 700;
+  color: #1a202c;
+  text-decoration: none;
+  letter-spacing: -0.5px;
+  transition: color 0.2s ease;
+
+  &:hover {
+    color: #b88e2f;
+  }
+}
+
+// Navigation Links
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 48px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  flex: 1;
+  justify-content: center;
+
+  li {
+    margin: 0;
+  }
+
+  a {
+    font-size: 16px;
+    font-weight: 500;
+    color: #1a202c;
+    text-decoration: none;
+    transition: color 0.2s ease;
+    position: relative;
+    padding: 8px 0;
+
+    &:hover {
+      color: #b88e2f;
+    }
+
+    &.active {
+      color: #b88e2f;
+      font-weight: 600;
+
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background: #b88e2f;
+      }
+    }
+  }
+}
+
+// Utility Icons
+.utility-icons {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  flex-shrink: 0;
+}
+
+.icon-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #1a202c;
+  transition: all 0.2s ease;
+  position: relative;
+  border-radius: 4px;
+
+  &:hover {
+    color: #b88e2f;
+    background: rgba(184, 142, 47, 0.1);
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+
+  svg {
+    display: block;
+  }
+}
+
+.cart-btn {
+  position: relative;
+}
+
+.cart-badge {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  background: #b88e2f;
+  color: white;
+  font-size: 10px;
+  font-weight: 600;
+  border-radius: 50%;
+  width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  border: 2px solid white;
+}
+
+.user-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+}
+
+.username {
+  font-size: 14px;
+  font-weight: 500;
+  color: #1a202c;
+  white-space: nowrap;
+}
+
+// Responsive Design
+@media (max-width: 968px) {
+  .nav-container {
+    gap: 24px;
+  }
+
+  .nav-links {
+    gap: 32px;
+  }
+}
+
+@media (max-width: 768px) {
+  .nav-container {
+    padding: 0 16px;
+    height: 70px;
+    gap: 16px;
+  }
+
+  .logo-section {
+    gap: 8px;
+  }
+
+  .logo-text {
+    font-size: 20px;
+  }
+
+  .logo-icon {
+    width: 28px;
+    height: 28px;
+
+    img {
+      width: 24px;
+      height: 24px;
+    }
+  }
+
+  .nav-links {
+    gap: 20px;
+
+    a {
+      font-size: 14px;
+    }
+  }
+
+  .utility-icons {
+    gap: 12px;
+  }
+
+  .icon-btn {
+    padding: 6px;
+
+    svg {
+      width: 20px;
+      height: 20px;
+    }
+  }
+
+  .user-btn {
+    gap: 6px;
+    padding: 6px 8px;
+  }
+
+  .username {
+    font-size: 12px;
+    max-width: 80px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+@media (max-width: 640px) {
+  .nav-container {
+    padding: 0 12px;
+    height: 64px;
+    gap: 12px;
+  }
+
+  .nav-links {
+    display: none;
+  }
+
+  .logo-text {
+    font-size: 18px;
+  }
+
+  .logo-icon {
+    width: 24px;
+    height: 24px;
+
+    img {
+      width: 20px;
+      height: 20px;
+    }
+  }
+
+  .utility-icons {
+    gap: 8px;
+  }
+
+  .icon-btn {
+    padding: 4px;
+
+    svg {
+      width: 18px;
+      height: 18px;
+    }
+  }
+
+  .user-btn {
+    padding: 4px 6px;
+    gap: 4px;
+  }
+
+  .username {
+    display: none; // Hide username on very small screens, show only icon
+  }
+
+  .cart-badge {
+    width: 16px;
+    height: 16px;
+    font-size: 9px;
+    top: 2px;
+    right: 2px;
+  }
+}
+
+@media (max-width: 480px) {
+  .nav-container {
+    padding: 0 12px;
+    height: 60px;
+  }
+
+  .logo-text {
+    font-size: 16px;
+  }
+
+  .logo-icon {
+    width: 20px;
+    height: 20px;
+
+    img {
+      width: 18px;
+      height: 18px;
+    }
+  }
+
+  .utility-icons {
+    gap: 6px;
+  }
+
+  .icon-btn {
+    padding: 4px;
+
+    svg {
+      width: 16px;
+      height: 16px;
+    }
+  }
+
+  .user-btn {
+    padding: 4px;
+  }
+
+  .cart-badge {
+    width: 14px;
+    height: 14px;
+    font-size: 8px;
+  }
+}
