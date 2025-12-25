@@ -12,8 +12,226 @@
 
     <h1 class="page-title">Checkout</h1>
     
-    <div class="checkout-content">
-      <p>Checkout page will be implemented here.</p>
+    <div class="checkout-content" *ngIf="items().length > 0">
+      <div class="checkout-card">
+        <form [formGroup]="checkoutForm" (ngSubmit)="onSubmit()" class="checkout-form">
+          <!-- Billing Details Section -->
+          <div class="form-section">
+            <h2 class="section-title">Billing details</h2>
+          
+          <div class="form-row">
+            <div class="form-group">
+              <label>First Name <span class="required">*</span></label>
+              <input
+                type="text"
+                formControlName="firstName"
+                [class.error]="firstName?.invalid && firstName?.touched"
+              />
+              <div class="error-message" *ngIf="firstName?.invalid && firstName?.touched">
+                First name is required
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Last Name</label>
+              <input
+                type="text"
+                formControlName="lastName"
+              />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Company Name (Optional)</label>
+            <input
+              type="text"
+              formControlName="companyName"
+            />
+          </div>
+
+          <div class="form-group">
+            <label>Country / Region <span class="required">*</span></label>
+            <select
+              formControlName="country"
+              [class.error]="country?.invalid && country?.touched"
+            >
+              <option value="Sri Lanka">Sri Lanka</option>
+              <option value="India">India</option>
+              <option value="USA">USA</option>
+              <option value="UK">UK</option>
+            </select>
+            <div class="error-message" *ngIf="country?.invalid && country?.touched">
+              Country is required
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Street address <span class="required">*</span></label>
+            <input
+              type="text"
+              formControlName="address"
+              [class.error]="address?.invalid && address?.touched"
+            />
+            <div class="error-message" *ngIf="address?.invalid && address?.touched">
+              Address is required
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Town / City <span class="required">*</span></label>
+            <input
+              type="text"
+              formControlName="city"
+              [class.error]="city?.invalid && city?.touched"
+            />
+            <div class="error-message" *ngIf="city?.invalid && city?.touched">
+              City is required
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>State <span class="required">*</span></label>
+            <select
+              formControlName="state"
+              [class.error]="state?.invalid && state?.touched"
+            >
+              <option value="">Select State</option>
+              <option value="Maharashtra">Maharashtra</option>
+              <option value="Gujarat">Gujarat</option>
+              <option value="Karnataka">Karnataka</option>
+              <option value="Tamil Nadu">Tamil Nadu</option>
+              <option value="Andhra Pradesh">Andhra Pradesh</option>
+              <option value="Telangana">Telangana</option>
+              <option value="Punjab">Punjab</option>
+              <option value="Rajasthan">Rajasthan</option>
+              <option value="Haryana">Haryana</option>
+              <option value="Madhya Pradesh">Madhya Pradesh</option>
+              <option value="Jharkhand">Jharkhand</option>
+              <option value="Chhattisgarh">Chhattisgarh</option>
+              <option value="Odisha">Odisha</option>
+              <option value="Bihar">Bihar</option>
+            </select>
+            <div class="error-message" *ngIf="state?.invalid && state?.touched">
+              state is required
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>ZIP code <span class="required">*</span></label>
+            <input
+              type="text"
+              formControlName="zipCode"
+              [class.error]="zipCode?.invalid && zipCode?.touched"
+            />
+            <div class="error-message" *ngIf="zipCode?.invalid && zipCode?.touched">
+              ZIP code is required
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Phone <span class="required">*</span></label>
+            <input
+              type="tel"
+              formControlName="phone"
+              [class.error]="phone?.invalid && phone?.touched"
+            />
+            <div class="error-message" *ngIf="phone?.invalid && phone?.touched">
+              Phone number is required
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Email address</label>
+            <input
+              type="email"
+              formControlName="email"
+            />      
+          </div>
+
+          <div class="form-group">
+            <label>Additional information</label>
+            <textarea
+              formControlName="additionalInfo"
+              rows="4"
+              placeholder="Additional information"
+            ></textarea>
+          </div>
+          </div>
+        </form>
+
+        <!-- Order Summary Section -->
+        <div class="order-summary">
+        <div class="order-items-header">
+          <div class="header-product">Product</div>
+          <div class="header-subtotal">Subtotal</div>
+        </div>
+
+        <div class="order-items-list">
+          <div class="order-item" *ngFor="let item of items()">
+            <div class="item-name">{{ item.product.title }} x {{ item.quantity }}</div>
+            <div class="item-price">{{ (item.product.price * item.quantity).toFixed(2) | currency:'INR' }}</div>
+          </div>
+        </div>
+
+        <div class="summary-totals">
+          <div class="totals-row">
+            <span class="totals-label">Subtotal</span>
+            <span class="totals-value">{{ subtotal().toFixed(2) | currency:'INR' }}</span>
+          </div>
+          <div class="totals-row total-row">
+            <span class="totals-label">Total</span>
+            <span class="totals-value total-value">{{ total().toFixed(2) | currency:'INR' }}</span>
+          </div>
+        </div>
+
+        <!-- Payment Method Section -->
+        <div class="payment-section" [formGroup]="checkoutForm">
+          <h3 class="payment-title">Payment Method</h3>
+          
+          <div class="payment-options">
+            <label class="payment-option">
+              <input
+                type="radio"
+                formControlName="paymentMethod"
+                value="directBankTransfer"
+              />
+              <span>Direct Bank Transfer</span>
+            </label>
+            
+            <div *ngIf="paymentMethod?.value === 'directBankTransfer'" class="payment-description">
+              <p>Make your payment directly into our bank account. Please use your Order ID as the payment reference. Your order will not be shipped until the funds have cleared in our account.</p>
+            </div>
+
+            <label class="payment-option">
+              <input
+                type="radio"
+                formControlName="paymentMethod"
+                value="cashOnDelivery"
+              />
+              <span>Cash On Delivery</span>
+            </label>
+          </div>
+
+          <p class="privacy-policy">
+            Your personal data will be used to support your experience throughout this website, to manage access to your account, and for other purposes described in our <strong>privacy policy.</strong>
+          </p>
+        </div>
+
+        <button
+          type="button"
+          class="place-order-btn"
+          (click)="onSubmit()"
+          [disabled]="isSubmitting() || checkoutForm.invalid">
+          <span *ngIf="!isSubmitting()">Place order</span>
+          <span *ngIf="isSubmitting()">Processing...</span>
+        </button>
+      </div>
+      </div>
+
+    <!-- Empty Cart -->
+    <div class="empty-cart" *ngIf="items().length === 0">
+      <p>Your cart is empty.</p>
+      <a routerLink="/products" class="shop-link">Continue Shopping</a>
     </div>
   </div>
 </div>
