@@ -23,7 +23,10 @@
           <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
           <circle cx="12" cy="7" r="4"></circle>
         </svg>
-        <span class="username" *ngIf="isLoggedIn() && username()">{{ username() }}</span>
+        <span class="username" *ngIf="isLoggedIn() && username();else login">{{ username() }}</span>
+        <ng-template #login>
+          <span class="username">Login</span>
+        </ng-template>
       </button>
       
       <!-- <button class="icon-btn" (click)="onSearchClick()" aria-label="Search">
